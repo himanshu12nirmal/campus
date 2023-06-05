@@ -1,0 +1,105 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+<title> Add Student</title>
+<div class="justify-content-center row" style="padding-bottom:50px;padding-top: 2%;">
+
+    <div class="card bg-light border-success" style="width: 75%">
+        <div class="text-center border-success row">
+            <h1 class="card-header" style="padding: 3%;">Update Student</h1>
+        </div>
+        <div class="card-body text-success">
+            <form class="row g-3" action="{% url 'student-report-update' student.enrollment %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3 align-items-center">
+
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="number" class="form-control" name="enrollment" value="{{ student.enrollment }}" readonly>
+                    </div>
+
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="text" class="form-control" name="name" value="{{ student.name }}">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="number" class="form-control" name="phone_no" value="{{ student.phone_no }}">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <select class="form-select" aria-label=".form-select-lg example" name="tfws">
+                            {% if tfws == 'Yes' %}
+                                <option value="1">Yes</option>
+                                <option selected value="2">No</option>
+                            {% else %}
+                                <option selected value="1">Yes</option>
+                                <option value="2">No</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        <label for="profile">Profile Photo</label>
+                        <input type="file" accept=".jpg, .png, .jpeg,tiff|image/*" class="form-control" name="photo">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <select class="form-select" aria-label=".form-select-lg example" name="branch_name">
+                            <option selected value="{{student.branch}}">{{student.branch}}</option>
+                            {% for Branch_Name in BranchName %}
+                                <option value="{{ Branch_Name.branch_name }}">{{Branch_Name.branch_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <br>
+                        <select class="form-select" aria-label=".form-select-lg example" name="semester">
+                            <option selected value="{{ student.sem }}">{{ student.sem }}</option>
+                            {% for Sem in Semester %}
+                            <option value="{{Sem.sem}}">{{Sem.sem}}</option>
+                                
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <label for="dofbirth">Date Of Birth</label>
+                        <input type="date" class="form-control" id="dofbirth" name="dob" value="{{dob}}">
+                    </div>
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+                        &nbsp;
+                        <textarea class="form-control" name="address" rows="4" >{{ student.address }}</textarea>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        <input type="text" class="form-control" name="div" value="{{ student.div }}">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="password" class="form-control" id="pass" name="password" value="{{ student.password }}">
+                        <input type="checkbox" onclick="myFunction()" id="pas">
+                        <label for="pas">Show Password</label>
+                    </div>
+                </div>
+        </div>
+        <div class="text-center" style="padding-bottom:2% ;">
+            <button type="submit" class="btn btn-secondary ustify-content-center row ">Submit</button>
+
+        </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    function myFunction() {
+        var x = document.getElementById("pass");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+</script>
+{% endblock %}

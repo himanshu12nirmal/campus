@@ -1,0 +1,114 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+{% load mathfilters %}
+
+<div class="card">
+    <div class="card-header text-center d-flex" style="font-size: 30px;">
+        <div class="d-flex" style="margin:auto;">
+            Lecture Report
+        </div>
+        <form class="d-flex" role="search" method="GET" action="{% url 'student-report-list' %}">
+            <input class="form-control me-5" type="search" name="search" placeholder="Enter enrollment or Name" aria-label="Search">
+            <button class="btn btn-outline-danger me-3" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="card-body ">
+        <div class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl text-center">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Branch Name</th>
+                    <th>Sem</th>
+                    <th>Div</th>
+                    <th>Subject</th>
+                    <th>Faculty ID</th>
+                </tr>
+                {% for Lecture in lec %}
+                <tr>date,stime,etime,branch,sem,div,sub,fac
+                    <td>
+                        <a href="{% url 'lecture-report-result' Lecture.date Lecture.start_time Lecture.end_time Lecture.branch_id Lecture.semester_id Lecture.div_id Lecture.subject_id Lecture.faculty_id_id%}">{{Lecture.date}} </a>
+                    </td>
+                    <td>
+                        {{Lecture.start_time}}
+                    </td>
+                    <td>
+                        {{Lecture.end_time}}
+                    </td>
+                    <td>
+                        {{Lecture.branch_id}}
+                    </td>
+                    <td>
+                        {{Lecture.semester_id}}
+                    </td>
+                    <td>
+                        {{Lecture.div_id}}
+                    </td>
+                    <td>
+                        {{Lecture.subject_id}}
+                    </td>
+                    <td>
+                        {{Lecture.faculty_id_id}}
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        <!-- <a href="#" class="btn btn-success" style="width:80px ;"> update</a> <br> -->
+    </div>
+    <div class="card-footer ">
+        <ul class="pagination justify-content-center">
+            {% if stud.has_previous %}
+            <li class="page-item">
+                <a class="btn" href="?page=1">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{stud.previous_page_number }}"> &lt </a>
+            </li>
+            {% endif %}
+
+            {% if not stud.has_previous %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &lt</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+                <p class="btn btn-light disabled">Page {{stud.number}} of {{stud.paginator.num_pages}}</p>
+            </li>
+            {% if not stud.has_next %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&raquo; </a>
+            </li>
+            {% endif %}
+
+            {% if stud.has_next %}
+            <li class="page-item">
+                <a class="btn" href="?page={{stud.next_page_number }}"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{stud.paginator.num_pages}}">&raquo; </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+
+
+
+
+
+</div>
+
+<!-- <li class="page-item"><a class="btn" href="#">1</a></li> -->
+
+{% endblock %}

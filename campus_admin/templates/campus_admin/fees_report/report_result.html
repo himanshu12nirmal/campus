@@ -1,0 +1,90 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+{% load mathfilters %}
+
+<div class="card">
+    <div class="card-header text-center" style="font-size: 30px;">
+        Fees Report
+        {% for Fees in fees|slice:":1" %}
+        <p style="color:rgb(151, 114, 114) ;">
+            &nbsp;&nbsp;&nbsp;
+            Branch:
+            {{Fees.enrollment.branch}}
+            &nbsp;&nbsp;&nbsp;
+            Sem:
+            {{Fees.enrollment.sem}}
+
+        </p>
+        {% endfor %}    
+    </div>
+    <div class="card-body ">
+        <div
+            class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl text-center">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Enrollment</th>
+                    <th>Status</th>
+                </tr>
+                {% for Fees in fees %}
+                <tr>
+                    <td>
+                        {{Fees.enrollment.enrollment}}
+                    </td>
+                    <td>
+                        {% if Fees.status == True %}
+                            Paid
+                        {% else %}
+                            Not Paid
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="card-footer ">
+        <ul class="pagination justify-content-center">
+            {% if fees.has_previous %}
+            <li class="page-item">
+                <a class="btn" href="?page=1">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{fees.previous_page_number }}"> &lt </a>
+            </li>
+            {% endif %}
+
+            {% if not fees.has_previous %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &lt</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+                <p class="btn btn-light disabled">Page {{fees.number}} of {{fees.paginator.num_pages}}</p>
+            </li>
+            {% if not fees.has_next %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&raquo; </a>
+            </li>
+            {% endif %}
+
+            {% if fees.has_next %}
+            <li class="page-item">
+                <a class="btn" href="?page={{fees.next_page_number }}"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{fees.paginator.num_pages}}">&raquo; </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

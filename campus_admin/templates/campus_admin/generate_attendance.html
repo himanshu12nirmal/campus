@@ -1,0 +1,133 @@
+{% extends 'campus_admin/teacher_home.html' %}
+
+{% block content %}
+<title> Generate Attendance</title>
+<div class="justify-content-center row" style="padding-bottom:50px;padding-top: 2%;">
+
+    <div class="card bg-light border-success" style="width: 75%">
+        <div class="text-center border-success row">
+            <h1 class="card-header" style="padding: 3%;">Generate QR current sessionbnm  </h1>
+        </div>
+        <div class="card-body text-success">
+            <form class="row g-3" action="{% url 'add-student' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3 align-items-center">
+
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="number" class="form-control" required name="enrollment"
+                            placeholder="Student Enrollment">
+                    </div>
+
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <br>
+                        <div class="input-group mb-3">
+                            <select class="form-select" id="semesterSelect" aria-label=".form-select-lg example" required name="semester" onchange="semesterChange(this.value)">
+                                <option selected>----Semester----</option>
+                                {% for Sem in Semester %}
+                                <option value="{{Sem.sem}}">{{Sem.sem}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                     </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+
+                        &nbsp;
+                        <br>
+                        <div class="input-group mb-3">
+                            <select class="form-select" id="divSelect" aria-label=".form-select-lg example" required name="div" >
+                                <option selected>----Division----</option>
+                                {% for Div in Division %}
+                                <option value="{{Div.div}}">{{Div.div}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+
+                        &nbsp;
+                        <br>
+                        <div class="input-group mb-3">
+                            <select class="form-select" aria-label=".form-select-lg example" required name="course">
+                                <option selected>----Course----</option>
+                                {% for Cou in Course %}
+                                <option value="{{Cou.subject}}">{{Cou.subject}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="text-center" style="padding-bottom:2% ;">
+            <button type="submit" class="btn btn-secondary ustify-content-center row ">Submit</button>
+
+        </div>
+        </form>
+    </div>
+</div>
+
+<!-- <script>
+    var temp = "{{Division}}";
+    function semesterChange(value){
+        $.ajax({
+            type:'GET',
+            url: "{% url 'get-semester' %}",
+            data:{
+                division: "{{Division.Div}}"
+            },
+            success: function(response){
+                    // $(semesterSelect).empty();
+                    // for(var key in response.semester){
+                    //     var temp = ""
+                    // }
+                    console.log(value);
+                        temp = response;
+
+                    console.log("{{Division.Div}}");
+                },
+        });
+    
+    }
+    // $(document).ready(function(){
+    //     setInterval(function(){
+    //         $.ajax({
+    //             type:'GET',
+    //             url: "{% url 'get-semester' %}",
+    //             success: function(response){
+    //                 // console.log(response);
+    //                 $
+    //             },
+    //             error: function(response){
+    //                 alert("Error occured")
+    //             }
+    //         });
+    //     },1000);
+    // });
+    </script> -->
+
+{% endblock %}
+
+<!-- ajax call script -->
+
+<!-- <script type="text/javascript">
+    $(document).on('submit','#branchSave',function(e){
+        e.preventDefault();
+    $.ajax(
+    {
+        type:"POST",
+        url: "{% url 'add-branch' %}",
+        data:{
+                bname: $('#branchName').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function( data ) 
+        {
+            alert('Saved');
+        }
+     })
+});
+</script> -->

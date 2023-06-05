@@ -1,0 +1,113 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+{% load mathfilters %}
+
+<div class="card">
+    <div class="card-header text-center d-flex" style="font-size: 30px;">
+        <div class="d-flex" style="margin:auto;">
+            Faculty Report
+        </div>
+        <form class="d-flex" role="search" method="GET" action="{% url 'faculty-report-list' %}">
+            <input class="form-control me-5" type="search" name="search" placeholder="Enter Faculty id or Name" aria-label="Search">
+            <button class="btn btn-outline-danger me-3" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="card-body ">
+        <div class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl text-center">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Faculty ID</th>
+                    <th>Faculty Name</th>
+                    <th>Faculty Branch</th>
+                    <th>Phone No </th>
+                    <th colspan="2">Additional</th>
+                </tr>
+                {% for Faculties in faculty %}
+                <tr>
+                    <td>
+                        <a href="{% url 'faculty-report-result' Faculties.faculty_id %}">{{Faculties.faculty_id}} </a>
+                    </td>
+                    <td>
+                        {{Faculties.name}}
+                    </td>
+                    <td>
+                        {{Faculties.branch}}
+                    </td>
+                    <td>
+                        {{Faculties.phone_no}}
+                    </td>
+                    
+                    
+                    <td style="width: 3%;">
+                        
+                        <div style="display: inline-block;" class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+                            <a href="{% url 'faculty-report-update' Faculties.faculty_id %}" class="btn btn-success btn-sm"
+                            style="width:55px ;padding-left: 0px;padding-right: 0px;">
+                            update</a> <br>
+                        </div>
+                    </td>
+                    <td style="width: 3%;">
+                        <div style="display: inline-block;" class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+                            <a href="{% url 'faculty-report-delete' Faculties.faculty_id %}" class="btn btn-success btn-sm"
+                            style="width:55px ;padding-left: 0px;padding-right: 0px;">
+                            delete</a> <br>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+    </div>
+    <div class="card-footer ">
+        <ul class="pagination justify-content-center">
+            {% if faculty.has_previous %}
+            <li class="page-item">
+                <a class="btn" href="?page=1">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{faculty.previous_page_number }}"> &lt </a>
+            </li>
+            {% endif %}
+
+            {% if not faculty.has_previous %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &lt</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+                <p class="btn btn-light disabled">Page {{faculty.number}} of {{faculty.paginator.num_pages}}</p>
+            </li>
+            {% if not faculty.has_next %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&raquo; </a>
+            </li>
+            {% endif %}
+
+            {% if faculty.has_next %}
+            <li class="page-item">
+                <a class="btn" href="?page={{faculty.next_page_number }}"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{faculty.paginator.num_pages}}">&raquo; </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+
+
+
+
+
+</div>
+
+<!-- <li class="page-item"><a class="btn" href="#">1</a></li> -->
+
+{% endblock %}

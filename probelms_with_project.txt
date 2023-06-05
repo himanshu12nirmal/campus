@@ -1,0 +1,23 @@
+1. profile photo is not uploading
+
+2. profile need to select two times in form after pressing tab
+
+3. nav bar has white part in left side
+
+4. make age field dynamic
+
+5. add an alert for successfully added,update,delete for all report
+
+6. dropdown howering repair in other modes
+
+7. add facility to show alert if report page doesnt exist
+
+8. add data into database through xls file
+
+9. if possible add image to show profile
+
+10. when we not give time in timetable it shows error
+
+11.add logic to show if no data is present in report
+
+12.course add option wheather in navbar or provide plus icon

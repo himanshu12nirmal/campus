@@ -1,0 +1,199 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+<title> Add Student</title>
+<div class="justify-content-center row" style="padding-bottom:50px;padding-top: 2%;">
+
+    <div class="card bg-light border-success" style="width: 75%">
+        <div class="text-center border-success row">
+            <h1 class="card-header" style="padding: 3%;">Add Student</h1>
+        </div>
+        <div class="card-body text-success">
+            <form class="row g-3" action="{% url 'add-student' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3 align-items-center">
+
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="number" class="form-control" required name="enrollment"
+                            placeholder="Student Enrollment">
+                    </div>
+
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="text" class="form-control" required name="name" placeholder="Student Name">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="number" class="form-control" required name="phone_no" placeholder="Phone No">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <select class="form-select" aria-label=".form-select-lg example" required name="tfws">
+                            <option selected>----TFWS Status----</option>
+                            <option value="1">{{Yes}}</option>
+                            <option value="2">{{No}}</option>
+                        </select>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        <label for="profile">Profile Photo</label>
+                        <input type="file" accept=".jpg, .png, .jpeg,tiff|image/*" class="form-control" name="photo"
+                            required>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <div class="input-group mb-3">
+                            <select class="form-select" aria-label=".form-select-lg example" required
+                                name="branch_name">
+                                <option selected>----Branch Name----</option>
+                                {% for Branch_Name in BranchName %}
+                                <option value="{{ Branch_Name.branch_name }}">{{Branch_Name.branch_name}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <br>
+                        <div class="input-group mb-3">
+                            <select class="form-select" aria-label=".form-select-lg example" required name="semester">
+                                <option selected>----Semester----</option>
+                                {% for Sem in Semester %}
+                                <option value="{{Sem.sem}}">{{Sem.sem}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                     </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <label for="dofbirth">Date Of Birth</label>
+                        <input type="date" class="form-control" id="dofbirth" required name="dob">
+                    </div>
+                    <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12">
+                        <textarea class="form-control" name="address" rows="4" required
+                            placeholder="Address"></textarea>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+
+                        <input type="text" class="form-control" required name="div" placeholder="Division">
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        &nbsp;
+                        <input type="password" class="form-control" id="pass" required name="password"
+                            placeholder="password">
+                        <input type="checkbox" onclick="myFunction()" id="pas">
+                        <label for="pas">Show Password</label>
+                    </div>
+                </div>
+        </div>
+        <div class="text-center" style="padding-bottom:2% ;">
+            <button type="submit" class="btn btn-secondary ustify-content-center row ">Submit</button>
+
+        </div>
+        </form>
+    </div>
+</div>
+<!-- Modal for Branch -->
+
+<form action="{% url 'add-branch' %}" method="post">
+    {% csrf_token %}
+    <div class="modal fade" id="branchName" tabindex="-1" aria-labelledby="branchNameLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="branchNameLabel">Add Branch</h1>
+                <div style="float:right;">
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    &nbsp;
+                    <input type="text" class="form-control" required name="branch" id="branchName" placeholder="Branch_Name">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary "  >Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<form action="{% url 'add-semester' %}" method="post">
+    {% csrf_token %}
+    <!-- Modal for Semester -->
+    <div class="modal fade" id="semeName" tabindex="-1" aria-labelledby="semeNameLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="semeNameLabel">Add Semester</h1>
+                <div style="float:right;">
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    &nbsp;
+                    <div class="input-group mb-3">
+                        <select class="form-select" aria-label=".form-select-lg example" required
+                            name="branch_name">
+                            <option selected>----Branch Name----</option>
+                            {% for Branch_Name in BranchName %}
+                            <option value="{{ Branch_Name.branch_name }}">{{Branch_Name.branch_name}}</option>
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="">
+                        &nbsp;
+                        <input type="text" class="form-control" required name="sem" placeholder="semester">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+<!-- JavaScript -->
+<script>
+    function myFunction() {
+        var x = document.getElementById("pass");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+</script>
+{% endblock %}
+
+<!-- ajax call script -->
+
+<!-- <script type="text/javascript">
+    $(document).on('submit','#branchSave',function(e){
+        e.preventDefault();
+    $.ajax(
+    {
+        type:"POST",
+        url: "{% url 'add-branch' %}",
+        data:{
+                bname: $('#branchName').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function( data ) 
+        {
+            alert('Saved');
+        }
+     })
+});
+</script> -->

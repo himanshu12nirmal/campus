@@ -1,0 +1,86 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+{% load mathfilters %}
+
+<div class="card">
+    <div class="card-header text-center d-flex" style="font-size: 30px;">
+        <div class="d-flex" style="margin:auto;">
+            Lecture Report
+        </div>
+    </div>
+    <div class="card-body ">
+        <div class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl text-center">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Enrollment</th>
+                </tr>
+                {% for Lecture in lec %}
+                <tr>
+                    <td>
+                        {{sr|add:"1"}}
+                    </td>
+                    <td>
+                        <a href="#">{{Lecture.enrollment}} </a>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        <!-- <a href="#" class="btn btn-success" style="width:80px ;"> update</a> <br> -->
+    </div>
+    <div class="card-footer ">
+        <ul class="pagination justify-content-center">
+            {% if stud.has_previous %}
+            <li class="page-item">
+                <a class="btn" href="?page=1">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{stud.previous_page_number }}"> &lt </a>
+            </li>
+            {% endif %}
+
+            {% if not stud.has_previous %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&laquo; </a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &lt</a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+                <p class="btn btn-light disabled">Page {{stud.number}} of {{stud.paginator.num_pages}}</p>
+            </li>
+            {% if not stud.has_next %}
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn disabled btn-light" href="#">&raquo; </a>
+            </li>
+            {% endif %}
+
+            {% if stud.has_next %}
+            <li class="page-item">
+                <a class="btn" href="?page={{stud.next_page_number }}"> &gt;</a>
+            </li>
+            <li class="page-item">
+                <a class="btn" href="?page={{stud.paginator.num_pages}}">&raquo; </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+
+
+
+
+
+</div>
+
+<!-- <li class="page-item"><a class="btn" href="#">1</a></li> -->
+
+{% endblock %}

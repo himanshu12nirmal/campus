@@ -1,0 +1,15 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <!-- functinality to add dyanamic sem in the add timetable page -->
+        {% for sem in sem %}
+        <button class="nav-link" id="nav-{{sem.sem}}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{sem.sem}}"
+            type="button" role="tab" aria-controls="nav-{{sem.sem}}">sem {{sem.sem}}</button>
+        {% endfor %}
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    {% for sem in sem %}
+    <div class="tab-pane fade show " id="nav-{{sem.sem}}" role="tabpanel" aria-labelledby="nav-{{sem.sem}}-tab">
+        {{sem.sem}}</div>
+    {% endfor %}
+</div>

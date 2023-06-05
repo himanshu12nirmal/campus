@@ -1,0 +1,105 @@
+<style>
+    .activelink:active {
+      color: rgb(102, 92, 92);
+  
+    }
+    @media all and (min-width: 992px) {
+      .navbar .dropdown-menu-end {
+        right: 0;
+        left: auto;
+      }
+  
+      .navbar .nav-item .dropdown-menu {
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        transition: .3s;
+        margin-top: 0;
+      }
+  
+      .navbar .nav-item:hover .nav-link {
+        color: #fff;
+      }
+  
+      .navbar .nav-item:hover .dropdown-menu {
+        transition: .3s;
+        opacity: 100;
+        visibility: visible;
+        top: 100%;
+        transform: rotateX(0deg);
+      }
+    }
+    .drop:hover {
+      background-color: rgb(84, 143, 194);
+    }
+    .drop{
+      color: blue;
+    }
+  </style>
+  <nav class="navbar navbar-expand-lg bg-primary " data-bs-theme="dark">
+    <div class="container-fluid ">
+      <a class="navbar-brand" href="#">Campus E Card (HOD)</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarScroll">
+        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll " style="--bs-scroll-height: 400px;">
+  
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Add Details
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end row" aria-labelledby="navbarDarkDropdownMenuLink"
+              style="background-color: aliceblue;">
+              <div style="text-align:left; background-color: aliceblue;">
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'add-student' %}">Add
+                    Student</a></li>
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'add-faculty' %}">Add
+                    Faculty</a></li>
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'add-hod' %}">Add
+                    HOD</a></li>
+  
+              </div>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Reports
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end row" aria-labelledby="navbarDarkDropdownMenuLink"
+              style="background-color: aliceblue;">
+              <div style="text-align:left; background-color: aliceblue;">
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'student-report-list' %}">Student Report</a></li>
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'faculty-report-list' %}">Faculty Report</a></li>
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'timetable-report-list' %}">TimeTable Report</a></li>
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'timetable-report-list' %}">HOD Report</a></li>
+                <li><a class="dropdown-item drop activelink" aria-current="page" href="{% url 'timetable-report-list' %}">Lecture Report</a></li>
+  
+  
+              </div>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link activelink" aria-current="page" href="{% url 'add-timetable' %}">Add Time Table</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link activelink" aria-current="page" href="{% url 'attendance-sheet' %}">Generate Attendance Sheet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link activelink" aria-current="page" href="{% url 'add-course' %}">Course</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link activelink" aria-current="page" href="{% url 'add-semester' %}">Semester</a>
+          </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link activelink" aria-current="page" href="{% url 'add-branch' %}">Branch</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

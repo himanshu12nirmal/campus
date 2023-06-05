@@ -1,0 +1,202 @@
+{% extends 'campus_admin/base.html' %}
+
+{% block content %}
+<title> Add Timetable</title>
+<div class="justify-content-center row" style="padding-bottom:50px;padding-top: 2%;">
+
+    <div class="card bg-light border-success" style="width: 75%">
+        <div class="text-center border-success row">
+            <h1 class="card-header" style="padding: 3%;">Add Timetable</h1>
+        </div>
+        <form action="{% url 'add-timetable' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6" style="margin:auto">
+                &nbsp;
+                <div class="input-group mb-3">
+                    <select class="form-select" aria-label=".form-select-lg example" required
+                        name="branch_name">
+                        <option selected>----Branch Name----</option>
+                        {% for Branch_Name in BranchName %}
+                        <option value="{{ Branch_Name.branch_name }}">{{Branch_Name.branch_name}}</option>
+
+                        {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                        <button data-bs-toggle="modal" data-bs-target="#branchName"
+                            class="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6" style="margin:auto;">
+                &nbsp;
+                <br>
+                <div class="input-group mb-3">
+                    <select class="form-select" aria-label=".form-select-lg example" required name="semester">
+                        <option selected>----Semester----</option>
+                        {% for Sem in Semester %}
+                        <option value="{{Sem.sem}}">{{Sem.sem}}</option>
+
+                        {% endfor %}
+                    </select>
+
+                    <div class="input-group-append">
+                        <button data-bs-toggle="modal" data-bs-target="#semeName"
+                            class="btn btn-outline-secondary" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6" style="margin:auto">
+                &nbsp;
+                <br>
+                <select class="form-select" aria-label=".form-select-lg example" required name="div">
+                    <option selected>----Division----</option>
+                    {% for Dividion in div %}
+                    <option value="{{Dividion.div}}">{{Dividion.div}}</option>
+
+                    {% endfor %}
+                </select>
+                <!-- <input type="number" class="form-control" required name="semester" placeholder="Semester"> -->
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6" style="margin:auto;padding-bottom: 20px;">
+                &nbsp;
+                <br>
+                <select class="form-select" aria-label=".form-select-lg example" required name="day">
+                    <option selected>----Day----</option>
+                    <option value="monday">monday</option>
+                    <option value="tuesday">tuesday</option>
+                    <option value="wednesday">wednesday</option>
+                    <option value="tuesday">tuesday</option>
+                    <option value="friday">friday</option>
+                </select>
+                <!-- <input type="number" class="form-control" required name="semester" placeholder="Semester"> -->
+            </div>
+            <div class="table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl text-center">
+            <table class="table table-striped table-success table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Subject</th>
+                        <th>Room Number</th>
+                        <th>Room Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for count in count %}
+                    <tr>
+                        <td>
+                            <div class="">
+                                <input type="time" class="form-control" name="start_time{{count}}">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="">
+                                <input type="time" class="form-control" name="end_time{{count}}">
+                            </div>
+                        </td>
+                        <td>
+                            <select class="form-select" aria-label=".form-select-lg example" required
+                                name="course{{count}}">
+                                <option selected>----Course----</option>
+                                {% for Course in course %}
+                                <option value="{{Course.code}}">{{Course.subject}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            <div class="">
+                                <input type="text" class="form-control" name="room{{count}}"
+                                    placeholder="room{{count}}">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="">
+                                <input type="text" class="form-control" name="type{{count}}"
+                                    placeholder="type{{count}}">
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+            <div class="text-center" style="padding-bottom:2% ;">
+                <button type="submit" class="btn btn-secondary ustify-content-center row ">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal for Branch -->
+
+<form action="{% url 'add-branch' %}" method="post">
+    {% csrf_token %}
+    <div class="modal fade" id="branchName" tabindex="-1" aria-labelledby="branchNameLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="branchNameLabel">Add Branch</h1>
+                <div style="float:right;">
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    &nbsp;
+                    <input type="text" class="form-control" required name="branch" id="branchName" placeholder="Branch_Name">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary "  >Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<form action="{% url 'add-semester' %}" method="post">
+    {% csrf_token %}
+    <!-- Modal for Semester -->
+    <div class="modal fade" id="semeName" tabindex="-1" aria-labelledby="semeNameLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="semeNameLabel">Add Semester</h1>
+                <div style="float:right;">
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    &nbsp;
+                    <div class="input-group mb-3">
+                        <select class="form-select" aria-label=".form-select-lg example" required
+                            name="branch_name">
+                            <option selected>----Branch Name----</option>
+                            {% for Branch_Name in BranchName %}
+                            <option value="{{ Branch_Name.branch_name }}">{{Branch_Name.branch_name}}</option>
+
+                            {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                            <button data-bs-toggle="modal" data-bs-target="#branchName"
+                                class="btn btn-outline-secondary" type="button">+</button>
+                        </div>
+                    </div>
+                    <div class="">
+                        &nbsp;
+                        <input type="text" class="form-control" required name="sem" placeholder="semester">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+{% endblock %}
